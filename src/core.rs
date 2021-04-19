@@ -1,4 +1,6 @@
 use super::*;
+use std::process;
+// use std::io::stdin;
 
 pub fn run(cmd: &arg::Command) {
     match cmd {
@@ -17,9 +19,15 @@ pub fn run(cmd: &arg::Command) {
                      * good to go!
                      */
                     println!("cd {}", result[0]);
+                } else if result.len() == 0 {
+                    println!("{}", message::error("No matching result found"));
+                    process::exit(1);
                 } else {
                     // select
                     println!("{}", message::warn("More than one result found"));
+                    process::exit(1);
+                    // let mut input = String::new();
+                    // stdin().read_line(&mut input).expect("failed to read");
                 }
             } else {
                 println!("{}", message::error("no bookmark file is found"));
