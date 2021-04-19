@@ -2,6 +2,7 @@ mod arg;
 mod constants;
 mod core;
 mod data;
+mod message;
 mod query;
 
 fn main() {
