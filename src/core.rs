@@ -4,6 +4,15 @@ use std::process;
 
 pub fn run(cmd: &arg::Command) {
     match cmd {
+        arg::Command::Init => {
+            if let Ok(p) = data::get_shell_script_path().into_string() {
+                println!("{}", p);
+            } else {
+                println!("{}", message::error("invalid shell script path"));
+            }
+            process::exit(1);
+        }
+
         arg::Command::Add(_cmd, _path) => {
             if let Err(_) = data::write(&String::from(_path)) {
                 println!("{}", message::error("failed to write data"));

@@ -2,8 +2,9 @@ use std::env;
 
 #[derive(PartialEq, Debug)]
 pub enum Command {
-    Add(String, String),
-    Go(String),
+    Init, // loads shell scripts
+    Add(String, String), // add path to a data file
+    Go(String), // execute chdir
 }
 
 impl Command {
@@ -13,6 +14,7 @@ impl Command {
         }
 
         let cmd = match read_command(args).as_str() {
+            "init" => Command::Init,
             "add" => Command::Add(String::from(&args[1]), String::from(&args[2])),
             _ => Command::Go(String::from(&args[1])),
         };
@@ -32,6 +34,14 @@ pub fn read_command(args: &[String]) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn gets_init_command() {
+        let bin = String::from("bin");
+        let cmd = String::from("init");
+        let cmd = Command::new(&[bin, cmd]).unwrap();
+        assert_eq!(cmd, Command::Init);
+    }
 
     #[test]
     fn gets_add_command() {

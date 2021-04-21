@@ -5,6 +5,7 @@ use std::error::Error;
 use std::{env, fs, io, io::prelude::*};
 use std::fs::{File, OpenOptions};
 use std::path::{Path, PathBuf};
+use std::ffi::OsString;
 
 pub fn sym_link_path(path: &PathBuf) -> io::Result<PathBuf> {
     let current_dir = fs::read_link(path)?;
@@ -76,4 +77,12 @@ pub fn write<'a>(path_to_add: &'a String) -> Result<(), Box<dyn Error>> {
     }
 
     Ok(())
+}
+
+pub fn get_shell_script_path() -> OsString {
+    let mut sc_path = data_path().unwrap();
+    sc_path.pop();
+    sc_path.pop();
+
+    Path::join(&sc_path, "rc.sh").into_os_string()
 }
