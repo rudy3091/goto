@@ -36,7 +36,7 @@ pub fn run(cmd: &arg::Command) {
                     println!("{}", message::warn("More than one result found"));
                     let mut list = String::new();
                     for item in result {
-                        list.push_str(format!("{}\n", item).as_str());
+                        list.push_str(format!(";{}\n", item).as_str());
                     }
                     println!("{}", list);
                     process::exit(2);
