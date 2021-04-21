@@ -3,7 +3,10 @@ function goto() {
 		"add") echo "$(go-to $@)" ;;
 		*)
 			cmd=$(go-to $@)
-			if [ $? -eq 1 ]; then
+			code=$?
+			if [ $code -eq 1 ]; then
+				echo "$cmd"
+			elif [ $code -eq 2 ]; then
 				echo "$cmd"
 			else
 				echo "$cmd"
