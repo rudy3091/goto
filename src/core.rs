@@ -18,14 +18,19 @@ pub fn run(cmd: &arg::Command) {
                     /*
                      * good to go!
                      */
-                    println!("cd {}", result[0]);
+                    println!("cd {}", &result[0]);
                 } else if result.len() == 0 {
                     println!("{}", message::error("No matching result found"));
                     process::exit(1);
                 } else {
                     // select
                     println!("{}", message::warn("More than one result found"));
-                    process::exit(1);
+                    let mut list = String::new();
+                    for item in result {
+                        list.push_str(format!("{}\n", item).as_str());
+                    }
+                    println!("{}", list);
+                    process::exit(2);
                     // let mut input = String::new();
                     // stdin().read_line(&mut input).expect("failed to read");
                 }
