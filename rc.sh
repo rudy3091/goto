@@ -47,7 +47,7 @@ function goto() {
 							;;
 						"y")
 							stty $state
-							eval ". cd ${arr[i]}"
+							eval ". cd ${arr[idx]}"
 							break
 							;;
 					esac
