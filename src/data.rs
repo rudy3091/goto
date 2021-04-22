@@ -23,7 +23,7 @@ pub fn data_path() -> io::Result<PathBuf> {
 
 pub fn read_file() -> Result<String, Box<dyn Error>> {
     let data_path = data_path().unwrap();
-    let file_path = Path::new(CONSTANTS.datafile_path_suffix);
+    let file_path = Path::new(CONSTANTS.datafile_name);
     let file_path = Path::new(&data_path).join(file_path);
 
     let mut file = File::open(file_path)?;
@@ -36,7 +36,7 @@ pub fn read_file() -> Result<String, Box<dyn Error>> {
 
 pub fn touch() -> Result<(), io::Error> {
     let data_path = data_path().unwrap();
-    let file_path = Path::new(CONSTANTS.datafile_path_suffix);
+    let file_path = Path::new(CONSTANTS.datafile_name);
     let file_path = Path::new(&data_path).join(file_path);
     println!("created data file at {}", file_path.display());
     match OpenOptions::new().create(true).write(true).open(file_path) {
@@ -47,7 +47,7 @@ pub fn touch() -> Result<(), io::Error> {
 
 pub fn write<'a>(path_to_add: &'a String) -> Result<(), Box<dyn Error>> {
     let data_path = data_path().unwrap();
-    let file_path = Path::new(CONSTANTS.datafile_path_suffix);
+    let file_path = Path::new(CONSTANTS.datafile_name);
     let file_path = Path::new(&data_path).join(file_path);
 
     let file = OpenOptions::new()
@@ -84,5 +84,5 @@ pub fn get_shell_script_path() -> OsString {
     sc_path.pop();
     sc_path.pop();
 
-    Path::join(&sc_path, "rc.sh").into_os_string()
+    Path::join(&sc_path, CONSTANTS.shell_rcfile_name).into_os_string()
 }

@@ -1,7 +1,9 @@
 pub struct Constants {
-    pub datafile_path_suffix: &'static str,
+    pub datafile_name: &'static str,
+    pub shell_rcfile_name: &'static str,
 }
 
 pub static CONSTANTS: &'static Constants = &Constants {
-    datafile_path_suffix: "data.txt",
+    datafile_name: "data.txt",
+    shell_rcfile_name: "rc.sh",
 };
