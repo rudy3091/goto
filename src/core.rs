@@ -14,7 +14,7 @@ pub fn run(cmd: &arg::Command) {
         }
 
         arg::Command::Add(_cmd, _path) => {
-            if let Err(_) = data::write(&String::from(_path)) {
+            if let Err(_) = data::create::write(&String::from(_path)) {
                 println!("{}", message::error("failed to write data"));
             }
         }
