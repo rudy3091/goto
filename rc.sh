@@ -10,8 +10,12 @@ function goto() {
 
       elif [ $code -eq 2 ]; then # matches multiple
         cmd=$(go-to prompt $@)
+        code=$?
         echo $cmd
-        eval $cmd
+
+        if [ $code -eq 0 ]; then
+          eval $cmd
+        fi
       fi
       ;;
   esac

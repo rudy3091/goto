@@ -26,9 +26,18 @@ pub fn run(cmd: &arg::Command) {
 
             if let Ok(contents) = data::read_file() {
                 let result = query::search(target.as_str(), contents.as_str());
-                let idx = buf.trim().parse::<usize>().unwrap();
-                // println!("{}", idx);
-                println!("cd {}", result[idx]);
+                let idx = buf.trim().parse::<usize>();
+                if let Ok(n) = idx {
+                    if n >= result.len() {
+                        println!("{}", message::error("input is out of range"));
+                        process::exit(1);
+                    }
+
+                    println!("cd {}", result[n]);
+                } else {
+                    println!("{}", message::error("expected number"));
+                    process::exit(1);
+                }
             }
         }
 
@@ -46,19 +55,11 @@ pub fn run(cmd: &arg::Command) {
                     println!("{}", message::error("No matching result found"));
                     process::exit(1);
                 } else {
+                    println!("{}", message::warn("More than one result found"));
                     for (idx, item) in result.iter().enumerate() {
                         println!("{}: {}", idx, item);
                     }
-                    // // select
-                    // println!("{}", message::warn("More than one result found"));
-                    // let mut list = String::new();
-                    // for item in result {
-                    //     list.push_str(format!(";{}\n", item).as_str());
-                    // }
-                    // println!("{}", list);
                     process::exit(2);
-                    // // let mut input = String::new();
-                    // // stdin().read_line(&mut input).expect("failed to read");
                 }
             } else {
                 println!("{}", message::error("no bookmark file is found"));
