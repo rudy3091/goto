@@ -4,11 +4,11 @@ function goto() {
     *)
       go-to $@
       code=$?
-      if [ $code -eq 1 ]; then
-        echo $cmd
+      if [ $code -eq 0 ]; then # matches one
+        cmd=$(go-to $@)
         eval $cmd
 
-      elif [ $code -eq 2 ]; then
+      elif [ $code -eq 2 ]; then # matches multiple
         cmd=$(go-to prompt $@)
         echo $cmd
         eval $cmd

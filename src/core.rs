@@ -41,6 +41,7 @@ pub fn run(cmd: &arg::Command) {
                      * good to go!
                      */
                     println!("cd {}", &result[0]);
+                    process::exit(0);
                 } else if result.len() == 0 {
                     println!("{}", message::error("No matching result found"));
                     process::exit(1);
