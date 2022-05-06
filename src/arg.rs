@@ -4,6 +4,7 @@ use std::env;
 pub enum Command {
     Init, // loads shell scripts
     Add(String, String), // add path to a data file
+    Prompt(String), // gets input from stdin
     Go(String), // execute chdir
 }
 
@@ -16,6 +17,7 @@ impl Command {
         let cmd = match read_command(args).as_str() {
             "init" => Command::Init,
             "add" => Command::Add(String::from(&args[1]), String::from(&args[2])),
+            "prompt" => Command::Prompt(String::from(&args[2])),
             _ => Command::Go(String::from(&args[1])),
         };
 
@@ -50,6 +52,15 @@ mod tests {
         let path = String::from(".");
         let cmd = Command::new(&[bin, cmd, path]).unwrap();
         assert_eq!(cmd, Command::Add(String::from("add"), String::from(".")));
+    }
+
+    #[test]
+    fn gets_prompt_command() {
+        let bin = String::from("bin");
+        let cmd = String::from("prompt");
+        let path = String::from(".");
+        let cmd = Command::new(&[bin, cmd, path]).unwrap();
+        assert_eq!(cmd, Command::Prompt(String::from(".")));
     }
 
     #[test]
