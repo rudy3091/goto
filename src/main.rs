@@ -4,6 +4,7 @@ mod core;
 mod data;
 mod message;
 mod query;
+mod ui;
 
 fn main() {
     let args = arg::read();

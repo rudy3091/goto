@@ -11,6 +11,8 @@ function goto() {
       elif [ $code -eq 2 ]; then # matches multiple
         cmd=$(go-to prompt $@)
         code=$?
+
+        go-to close
         echo $cmd
 
         if [ $code -eq 0 ]; then

@@ -55,6 +55,7 @@ pub fn run(cmd: &arg::Command) {
                     println!("{}", message::error("No matching result found"));
                     process::exit(1);
                 } else {
+                    ui::screen::load();
                     println!("{}", message::warn("More than one result found"));
                     for (idx, item) in result.iter().enumerate() {
                         println!("{}: {}", idx, item);
@@ -64,6 +65,10 @@ pub fn run(cmd: &arg::Command) {
             } else {
                 println!("{}", message::error("no bookmark file is found"));
             }
+        }
+
+        arg::Command::Close => {
+            ui::screen::unload();
         }
     }
 }

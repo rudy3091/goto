@@ -6,6 +6,7 @@ pub enum Command {
     Add(String, String), // add path to a data file
     Prompt(String), // gets input from stdin
     Go(String), // execute chdir
+    Close, // finalize cd command
 }
 
 impl Command {
@@ -18,6 +19,7 @@ impl Command {
             "init" => Command::Init,
             "add" => Command::Add(String::from(&args[1]), String::from(&args[2])),
             "prompt" => Command::Prompt(String::from(&args[2])),
+            "close" => Command::Close,
             _ => Command::Go(String::from(&args[1])),
         };
 
